@@ -205,6 +205,7 @@
 				hideLoading();
 			} else if (data.name === 'cameraPicture') {
 				document.getElementById('photo').src = data.params.base64Image;
+				alert(data.params.base64Image);
 			}
 		}
 	}
