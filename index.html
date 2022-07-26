@@ -148,7 +148,7 @@
 
 	// 接到 message 要做什麼事的 function
 	function receiveMessage(e) {
-		alert(e.origin);
+		console.log('receiveMessage', e);
 		const allowOrigin = ['http://localhost:8080', 'http://localhost:4200']; // 建議用設定檔，未來會變更
 
 		// 如果不是我們要的來源，就不做事
