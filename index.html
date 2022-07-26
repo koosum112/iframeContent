@@ -28,6 +28,10 @@
 		<li><button id="showPhotoViewer">檢視照片</button></li>
 		<li><button id="showPDF">開啟pdf</button></li>
 	</ul>
+	<div>
+		<span> photo: </span>
+		<img id="photo" />
+	</div>
 </body>
 
 <!-- loading用 -->
@@ -155,9 +159,15 @@
 
 	document.getElementById('showPhotoViewer').addEventListener('click', function () {
 		parent.postMessage({ name: 'showPhotoViewer', params: {
-			"fileName": "00141126_CORPMU",
-			"filebinary": imgData.base64,
-			"filetype": "pdf"
+			"COMPANY_CODE": "LAW",
+			"FILENAME": "00141126_CORPMU",
+			"FILE_PATH": "/ACI/SECSATT/LAW/01/",
+			"FILESUBNAME": "pdf",
+			"IM_FILE_TYPE": "A05",
+			"IM_OP_TYPE": "A",
+			"IM_RECORD_DT": null,
+			"IM_SEQUENCE": null,
+			"MOBINS_SN": "00141126",
 		}} , '*');
 		console.log(imgData.base64);
 	});
@@ -193,6 +203,8 @@
 				window.location.reload();
 			} else if (data.name === 'getSaveToken') {
 				hideLoading();
+			} else if (data.name === 'cameraPicture') {
+				document.getElementById('photo').src = data.params.base64Image;
 			}
 		}
 	}
