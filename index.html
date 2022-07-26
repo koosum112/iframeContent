@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="en">
+<html>
+<meta charset="utf-8">
+
+<head></head>
+
+<body style="background-color: burlywood;">
+	<!-- <div id="preloader">
+		<div id="status"><img src="./loading.gif" />
+		</div>
+	</div> -->
+	<div>
+		<span> 載入時間: <span id="loadTime"></span> </span>
+	</div>
+	<ul>
+		<li><button id="queryPolicyBtn">新契約/保服通知</button></li>
+		<li><button id="queryBirthdayBtn">客戶生日/跳歲提醒</button></li>
+		<li><button id="queryConsultingReplyBtn">回覆諮詢通知</button></li>
+		<li><button id="imgBtn">顯示圖片</button></li>
+		<li><button id="urlBtn">外開網站</button></li>
+		<li><button id="pdfBtn">外開pdf</button></li>
+		<li><button id="getSaveTokenBtn">getSaveToken</button></li>
+		<li><button id="showLoadingBtn">showLoading</button></li>
+		<li><button id="changeTitle1">NEW標題</button></li>
+		<li><button id="changeTitle2">NEW標題2</button></li>
+	</ul>
+</body>
+
+<!-- loading用 -->
+<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.6/jquery.min.js"></script>
+<style>
+	#preloader {
+		/*   這是整個會蓋住畫面的底色色塊  */
+		position: fixed;
+		width: 100%;
+		height: 100%;
+		left: 0%;
+		top: 0%;
+		background-color: #fff;
+		z-index: 9999;
+		display: flex;
+		align-items: center;
+		justify-content: center;
+	}
+</style>
+
+
+<script>
+
+	document.getElementById('queryPolicyBtn').addEventListener('click', function () {
+		var data = {
+			APPLY_NO: "02591380",
+			CASE_TYPE: "1",
+			COIN: "NTD",
+			COIN_NAME: "台幣",
+			CONAME: "和泰",
+			CORP: "19",
+			EFFECT_DATE: 1603641600000,
+			ID: "SC30312753",
+			IDNAME: "丁麥*",
+			PAYID: "E223604389",
+			PAYIDNAME: "孫滿*",
+			POLNO: "90-109-09843737-IPA",
+			PROD_NAME: "意錠保意外傷害險新專案(IP)",
+			STATUS_NAME: "有效保單",
+			STATUS_ORDER: "00",
+			TAKE_ENO: null,
+			TAKE_ENO_NAME: null,
+		}
+		parent.postMessage({ type: 'function', name: 'PolicyQueryDetail', data: data }, '*');
+	});
+
+	document.getElementById('queryBirthdayBtn').addEventListener('click', function () {
+		var data = {
+			APPLY_NO: "02591380",
+			CASE_TYPE: "1",
+			COIN: "NTD",
+			COIN_NAME: "台幣",
+			CONAME: "和泰",
+			CORP: "19",
+			EFFECT_DATE: 1603641600000,
+			ID: "SC30312753",
+			IDNAME: "丁麥*",
+			PAYID: "E223604389",
+			PAYIDNAME: "孫滿*",
+			POLNO: "90-109-09843737-IPA",
+			PROD_NAME: "意錠保意外傷害險新專案(IP)",
+			STATUS_NAME: "有效保單",
+			STATUS_ORDER: "00",
+			TAKE_ENO: null,
+			TAKE_ENO_NAME: null,
+		}
+		parent.postMessage({ type: 'function', name: 'CustomerDetail', data: data }, '*');
+	});
+
+	document.getElementById('queryConsultingReplyBtn').addEventListener('click', function () {
+		var data = {
+			APPLY_NO: "02591380",
+			CASE_TYPE: "1",
+			COIN: "NTD",
+			COIN_NAME: "台幣",
+			CONAME: "和泰",
+			CORP: "19",
+			EFFECT_DATE: 1603641600000,
+			ID: "SC30312753",
+			IDNAME: "丁麥*",
+			PAYID: "E223604389",
+			PAYIDNAME: "孫滿*",
+			POLNO: "90-109-09843737-IPA",
+			PROD_NAME: "意錠保意外傷害險新專案(IP)",
+			STATUS_NAME: "有效保單",
+			STATUS_ORDER: "00",
+			TAKE_ENO: null,
+			TAKE_ENO_NAME: null,
+		}
+		parent.postMessage({ type: 'function', name: 'ConsultingReplyQuery', data: data }, '*');
+	});
+
+	document.getElementById('imgBtn').addEventListener('click', function () {
+		parent.postMessage({ type: 'img', url: 'https://assets-global.website-files.com/5d514fd9493b0575f03520bd/5dd708153f3c690e165bbd26_ewZVkY68XzsjX8MyJE7lM_rdlySdcVhkdNCIYY-C8ElkzK524U5N5vQb4FvTUuGWLJN0E2FcikIZVn3Vb658IYeik4jGQuQOGV74cxyzSej4zEzJgDE992SYG-32NSMXsY0PL8M-.png' }, '*');
+	});
+
+	document.getElementById('urlBtn').addEventListener('click', function () {
+		parent.postMessage({ type: 'url', url: 'https://www.yahoo.com.tw' }, '*');
+	});
+
+	document.getElementById('pdfBtn').addEventListener('click', function () {
+		parent.postMessage({ type: 'doc', docNo: '20190800359' }, '*');
+	});
+
+	document.getElementById('getSaveTokenBtn').addEventListener('click', function () {
+		showLoading();
+		parent.postMessage({ name: "getSaveToken", params: { queryToken: "712@292iyh$21fqw..." } }, '*');
+	});
+
+	document.getElementById('showLoadingBtn').addEventListener('click', function () {
+		showLoading();
+	});
+
+	document.getElementById('changeTitle1').addEventListener('click', function () {
+		parent.postMessage({ name: 'changeTitle', params: { title: "新標題1" } }, '*');
+	});
+
+	document.getElementById('changeTitle2').addEventListener('click', function () {
+		parent.postMessage({ name: 'changeTitle', params: { title: "新標題2" } }, '*');
+	});
+
+	// 接到 message 要做什麼事的 function
+	function receiveMessage(e) {
+		alert(e.origin);
+		const allowOrigin = ['http://localhost:8080', 'http://localhost:4200']; // 建議用設定檔，未來會變更
+
+		// 如果不是我們要的來源，就不做事
+		if (!allowOrigin.includes(e.origin)) {
+			console.error('資料來源錯誤', e.origin);
+			return false;
+		}
+		// 來源網址是指定的網域時
+		else {
+			// 拿傳來的參數（e.data）
+			console.log('data', e.data);
+			const data = e.data;
+			if (data.name === 'reload') {
+				console.log('reload');
+				window.location.reload();
+			} else if (data.name === 'getSaveToken') {
+				hideLoading();
+			}
+		}
+	}
+
+	// 監聽 message 事件
+	window.addEventListener('message', receiveMessage, false);
+
+	// 更新載入時間
+	function updateLoadTime() {
+		var now = new Date();
+		var time = now.getHours() + ':' + now.getMinutes() + ':' + now.getSeconds();
+		document.getElementById('loadTime').innerHTML = time;
+	}
+
+	function showLoading() {
+		$("#status").fadeIn();
+		$("#preloader").fadeIn();
+	}
+
+	function hideLoading() {
+		$("#status").fadeOut();
+		$("#preloader").delay(500).fadeOut("slow");
+	}
+
+	// 載入事件
+	window.addEventListener('load', function () {
+		// updateLoadTime();
+		// setTimeout(function () {
+		// 	hideLoading();
+		// }, 3000);
+	});
+
+</script>
+
+</html>
