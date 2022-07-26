@@ -28,6 +28,11 @@
 		<li><button id="showPhotoViewer">檢視照片</button></li>
 		<li><button id="showPDF">開啟pdf</button></li>
 	</ul>
+	<sp>
+		<span> receiveMessage: </span>
+		<span id="receiveMessageOrigin"></span>
+		<span id="receiveMessageData"></span>
+	</div>
 	<div>
 		<span> photo: </span>
 		<img id="photo" />
@@ -186,7 +191,8 @@
 	// 接到 message 要做什麼事的 function
 	function receiveMessage(e) {
 		const allowOrigin = ['http://localhost:4200']; // 建議用設定檔，未來會變更
-
+		document.getElementById('receiveMessageOrigin').innerText = e.origin;
+		document.getElementById('receiveMessageData').innerText = JSON.stringify(e.data);
 		// 如果不是我們要的來源，就不做事
 		if (!allowOrigin.includes(e.origin)) {
 			// console.error('資料來源錯誤', e.origin);
@@ -205,7 +211,6 @@
 				hideLoading();
 			} else if (data.name === 'cameraPicture') {
 				document.getElementById('photo').src = data.params.base64Image;
-				alert(data.params.base64Image);
 			}
 		}
 	}
