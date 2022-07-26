@@ -148,16 +148,16 @@
 
 	// 接到 message 要做什麼事的 function
 	function receiveMessage(e) {
-		console.log('receiveMessage', e);
 		const allowOrigin = ['http://localhost:8080', 'http://localhost:4200']; // 建議用設定檔，未來會變更
 
 		// 如果不是我們要的來源，就不做事
 		if (!allowOrigin.includes(e.origin)) {
-			console.error('資料來源錯誤', e.origin);
+			// console.error('資料來源錯誤', e.origin);
 			return false;
 		}
 		// 來源網址是指定的網域時
 		else {
+			console.log('receiveMessage', e);
 			// 拿傳來的參數（e.data）
 			console.log('data', e.data);
 			const data = e.data;
