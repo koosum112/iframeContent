@@ -28,6 +28,7 @@
 		<li><button id="showPhoto">檢視照片</button></li>
 		<li><button id="showPDF">開啟pdf</button></li>
 		<li><button id="openThirdPartyApp">開啟第三方APP</button></li>
+		<li><button id="openThirdPartyAppWeb">開啟第三方APP(Web)</button></li>
 	</ul>
 	<div>
 		<div> ReceiveMessage: </div>
@@ -189,16 +190,24 @@
 		parent.postMessage({ name: 'openDocumentService', params: {
 			"body": {},
 			"docType": "pdf",
-			"fileArrayBufferUrl": ""
+			"fileArrayBufferUrl": "https://crmot.inforce.com.tw/LawAPI/ws/documents/getDoc?type=DC&docNo=20191100020&categoryUuid=808&version=2"
 		}} , '*');
 	});
 
 	document.getElementById('openThirdPartyApp').addEventListener('click', function () {
 		parent.postMessage({ name: 'launchThirdPartyAppService', params: {
-			"appName": "遠雄",
-			"appUrl": "fglifeproposal://?login.html&token=0DAqjatdjrZ46WDf7dklup3zvpq2vWBd&broker=809",
-			"appType": "STOREAPP",
-			"downloadUrl": "https://itunes.apple.com/tw/app/%E9%81%A0%E9%9B%84%E4%BA%BA%E5%A3%BD%E8%A1%8C%E5%8B%95%E6%8A%95%E4%BF%9D1-0/id1435772198?mt=8",
+			"appName": "全球",
+			"appUrl": "mposappuat://broker=W01&token=niBj8HjJnto426vGcOOmVYSGtOR6V9eHbVMQhDRXcTDuD1J9fDytzW57UIo83rf6&insurer=14",
+			"appType": "APP",
+			"downloadUrl": "itms-services://?action=download-manifest&url=https://mposapp.transglobe.com.tw/ota/uat/lawbroker/IosGlobal2.plist",
+		}} , '*');
+	});
+	document.getElementById('openThirdPartyAppWeb').addEventListener('click', function () {
+		parent.postMessage({ name: 'launchThirdPartyAppService', params: {
+			"appName": "保誠",
+			"appUrl": "https://onlineuat.pcalife.com.tw/epos/rest/verifyTokenLawSEWS?broker=BR056&token=3fF0VonqfLJbldTGOu9K4dgZO121CqOvEoi8ke1SMKujsxAw0jiJuwpmu8J8JyTo&insurer=42",
+			"appType": "WEB",
+			"downloadUrl": "",
 		}} , '*');
 	});
 
