@@ -25,16 +25,18 @@
 		<li><button id="changeTitle1">NEW標題</button></li>
 		<li><button id="changeTitle2">NEW標題2</button></li>
 		<li><button id="openCamera">開啟相機</button></li>
-		<li><button id="showPhotoViewer">檢視照片</button></li>
+		<li><button id="showPhoto">檢視照片</button></li>
 		<li><button id="showPDF">開啟pdf</button></li>
+		<li><button id="openThirdPartyApp">開啟第三方APP</button></li>
 	</ul>
-	<sp>
-		<span> receiveMessage: </span>
-		<span id="receiveMessageOrigin"></span>
-		<span id="receiveMessageData"></span>
-	</div>
 	<div>
-		<span> photo: </span>
+		<div> ReceiveMessage: </div>
+		Origin:<span id="receiveMessageOrigin"></span><br>
+		Data: <span id="receiveMessageData"></span><br>
+	</div>
+	<br>
+	<div>
+		<span> Photo: </span>
 	</div>
 	<div>
 		<img id="photo" src="" style="height: 500px; width: 500px; border: 1px solid black;"/>
@@ -164,37 +166,45 @@
 		parent.postMessage({ name: 'openCamera', params: { } }, '*');
 	});
 
-	document.getElementById('showPhotoViewer').addEventListener('click', function () {
-		parent.postMessage({ name: 'showPhotoViewer', params: {
-			"COMPANY_CODE": "LAW",
-			"FILENAME": "00141126_CORPMU",
-			"FILE_PATH": "/ACI/SECSATT/LAW/01/",
-			"FILESUBNAME": "pdf",
-			"IM_FILE_TYPE": "A05",
-			"IM_OP_TYPE": "A",
-			"IM_RECORD_DT": null,
-			"IM_SEQUENCE": null,
-			"MOBINS_SN": "00141126",
+	document.getElementById('showPhoto').addEventListener('click', function () {
+		parent.postMessage({ name: 'openDocumentService', params: {
+			"fileArrayBufferUrl": "https://crmot.inforce.com.tw/LawAPI/ws/SeCsMbi/GetAttachmentImage",
+			"body": {
+				"companyCode": "LAW",
+				"fileName": "00141126_CORPMU",
+				"filePath": "/ACI/SECSATT/LAW/01/",
+				"fileSubName": "pdf",
+				"imFileType": "A05",
+				"imOpType": "A",
+				"imRecordDt": null,
+				"imSequence": null,
+				"mobinsSn": "00141126",
+			},
+			"docType": "pdf",
 		}} , '*');
 		console.log(imgData.base64);
 	});
 
 	document.getElementById('showPDF').addEventListener('click', function () {
-		parent.postMessage({ name: 'showPDF', params: {
-			"filebinary": pdfData.base64,
-			"filetype": "pdf",
-			"fileName": "行動投保小秘訣",
-			"hasPassword": false,
-			"authDownload": true,
-			"linkTypeURL": ""
+		parent.postMessage({ name: 'openDocumentService', params: {
+			"body": {},
+			"docType": "pdf",
+			"fileArrayBufferUrl": ""
+		}} , '*');
+	});
+
+	document.getElementById('openThirdPartyApp').addEventListener('click', function () {
+		parent.postMessage({ name: 'launchThirdPartyAppService', params: {
+			"appName": "遠雄",
+			"appUrl": "fglifeproposal://?login.html&token=0DAqjatdjrZ46WDf7dklup3zvpq2vWBd&broker=809",
+			"appType": "STOREAPP",
+			"downloadUrl": "https://itunes.apple.com/tw/app/%E9%81%A0%E9%9B%84%E4%BA%BA%E5%A3%BD%E8%A1%8C%E5%8B%95%E6%8A%95%E4%BF%9D1-0/id1435772198?mt=8",
 		}} , '*');
 	});
 
 	// 接到 message 要做什麼事的 function
 	function receiveMessage(e) {
 		const allowOrigin = ['http://localhost:4200', 'ionic://localhost']; // 建議用設定檔，未來會變更
-		document.getElementById('receiveMessageOrigin').innerText = e.origin;
-		document.getElementById('receiveMessageData').innerHTML = JSON.stringify(e.data);
 		// 如果不是我們要的來源，就不做事
 		if (!allowOrigin.includes(e.origin)) {
 			// console.error('資料來源錯誤', e.origin);
@@ -202,6 +212,8 @@
 		}
 		// 來源網址是指定的網域時
 		else {
+			document.getElementById('receiveMessageOrigin').innerText = e.origin;
+			document.getElementById('receiveMessageData').innerHTML = JSON.stringify(e.data);
 			console.log('receiveMessage', e);
 			// 拿傳來的參數（e.data）
 			console.log('data', e.data);
