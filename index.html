@@ -13,6 +13,10 @@
 	<div>
 		<span> 載入時間: <span id="loadTime"></span> </span>
 	</div>
+	<div>
+		<span> targetOrigin: </span>
+		<input id="targetOrigin" type="text" value="*"></input>
+	</div>
 	<ul>
 		<li><button id="queryPolicyBtn">新契約/保服通知</button></li>
 		<li><button id="queryBirthdayBtn">客戶生日/跳歲提醒</button></li>
@@ -85,7 +89,7 @@
 			TAKE_ENO: null,
 			TAKE_ENO_NAME: null,
 		}
-		parent.postMessage({ type: 'function', name: 'PolicyQueryDetail', data: data }, '*');
+		parent.postMessage({ type: 'function', name: 'PolicyQueryDetail', data: data }, document.getElementById("targetOrigin").value);
 	});
 
 	document.getElementById('queryBirthdayBtn').addEventListener('click', function () {
@@ -108,7 +112,7 @@
 			TAKE_ENO: null,
 			TAKE_ENO_NAME: null,
 		}
-		parent.postMessage({ type: 'function', name: 'CustomerDetail', data: data }, '*');
+		parent.postMessage({ type: 'function', name: 'CustomerDetail', data: data }, document.getElementById("targetOrigin").value);
 	});
 
 	document.getElementById('queryConsultingReplyBtn').addEventListener('click', function () {
@@ -131,24 +135,24 @@
 			TAKE_ENO: null,
 			TAKE_ENO_NAME: null,
 		}
-		parent.postMessage({ type: 'function', name: 'ConsultingReplyQuery', data: data }, '*');
+		parent.postMessage({ type: 'function', name: 'ConsultingReplyQuery', data: data }, document.getElementById("targetOrigin").value);
 	});
 
 	document.getElementById('imgBtn').addEventListener('click', function () {
-		parent.postMessage({ type: 'img', url: 'https://assets-global.website-files.com/5d514fd9493b0575f03520bd/5dd708153f3c690e165bbd26_ewZVkY68XzsjX8MyJE7lM_rdlySdcVhkdNCIYY-C8ElkzK524U5N5vQb4FvTUuGWLJN0E2FcikIZVn3Vb658IYeik4jGQuQOGV74cxyzSej4zEzJgDE992SYG-32NSMXsY0PL8M-.png' }, '*');
+		parent.postMessage({ type: 'img', url: 'https://assets-global.website-files.com/5d514fd9493b0575f03520bd/5dd708153f3c690e165bbd26_ewZVkY68XzsjX8MyJE7lM_rdlySdcVhkdNCIYY-C8ElkzK524U5N5vQb4FvTUuGWLJN0E2FcikIZVn3Vb658IYeik4jGQuQOGV74cxyzSej4zEzJgDE992SYG-32NSMXsY0PL8M-.png' }, document.getElementById("targetOrigin").value);
 	});
 
 	document.getElementById('urlBtn').addEventListener('click', function () {
-		parent.postMessage({ type: 'url', url: 'https://www.yahoo.com.tw' }, '*');
+		parent.postMessage({ type: 'url', url: 'https://www.yahoo.com.tw' }, document.getElementById("targetOrigin").value);
 	});
 
 	document.getElementById('pdfBtn').addEventListener('click', function () {
-		parent.postMessage({ type: 'doc', docNo: '20190800359' }, '*');
+		parent.postMessage({ type: 'doc', docNo: '20190800359' }, document.getElementById("targetOrigin").value);
 	});
 
 	document.getElementById('getSaveTokenBtn').addEventListener('click', function () {
 		showLoading();
-		parent.postMessage({ name: "getSaveToken", params: { queryToken: "712@292iyh$21fqw..." } }, '*');
+		parent.postMessage({ name: "getSaveToken", params: { queryToken: "712@292iyh$21fqw..." } }, document.getElementById("targetOrigin").value);
 	});
 
 	document.getElementById('showLoadingBtn').addEventListener('click', function () {
@@ -156,15 +160,15 @@
 	});
 
 	document.getElementById('changeTitle1').addEventListener('click', function () {
-		parent.postMessage({ name: 'changeTitle', params: { title: "新標題1" } }, '*');
+		parent.postMessage({ name: 'changeTitle', params: { title: "新標題1" } }, document.getElementById("targetOrigin").value);
 	});
 
 	document.getElementById('changeTitle2').addEventListener('click', function () {
-		parent.postMessage({ name: 'changeTitle', params: { title: "新標題2" } }, '*');
+		parent.postMessage({ name: 'changeTitle', params: { title: "新標題2" } }, document.getElementById("targetOrigin").value);
 	});
 
 	document.getElementById('openCamera').addEventListener('click', function () {
-		parent.postMessage({ name: 'openCamera', params: { } }, '*');
+		parent.postMessage({ name: 'openCamera', params: { } }, document.getElementById("targetOrigin").value);
 	});
 
 	document.getElementById('showPhoto').addEventListener('click', function () {
@@ -182,7 +186,7 @@
 				"mobinsSn": "00141126",
 			},
 			"docType": "pdf",
-		}} , '*');
+		}} , document.getElementById("targetOrigin").value);
 		console.log(imgData.base64);
 	});
 
@@ -191,7 +195,7 @@
 			"body": {},
 			"docType": "pdf",
 			"fileArrayBufferUrl": "https://crmot.inforce.com.tw/LawAPI/ws/documents/getDoc?type=DC&docNo=20191100020&categoryUuid=808&version=2"
-		}} , '*');
+		}} , document.getElementById("targetOrigin").value);
 	});
 
 	document.getElementById('openThirdPartyApp').addEventListener('click', function () {
@@ -200,7 +204,7 @@
 			"appUrl": "mposappuat://broker=W01&token=niBj8HjJnto426vGcOOmVYSGtOR6V9eHbVMQhDRXcTDuD1J9fDytzW57UIo83rf6&insurer=14",
 			"appType": "APP",
 			"downloadUrl": "itms-services://?action=download-manifest&url=https://mposapp.transglobe.com.tw/ota/uat/lawbroker/IosGlobal2.plist",
-		}} , '*');
+		}} , document.getElementById("targetOrigin").value);
 	});
 	document.getElementById('openThirdPartyAppWeb').addEventListener('click', function () {
 		parent.postMessage({ name: 'launchThirdPartyAppService', params: {
@@ -208,7 +212,7 @@
 			"appUrl": "https://onlineuat.pcalife.com.tw/epos/rest/verifyTokenLawSEWS?broker=BR056&token=3fF0VonqfLJbldTGOu9K4dgZO121CqOvEoi8ke1SMKujsxAw0jiJuwpmu8J8JyTo&insurer=42",
 			"appType": "WEB",
 			"downloadUrl": "NONE",
-		}} , '*');
+		}} , document.getElementById("targetOrigin").value);
 	});
 
 	// 接到 message 要做什麼事的 function
